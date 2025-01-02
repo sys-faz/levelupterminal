@@ -97,7 +97,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
     fi
 
     if ! [[ -d "$HOME/.oh-my-zsh" ]]; then
-        echo -e "${BB}Installing ohmyzsh${NC}"
+        echo -e "${BB}Installing:${NC} ${Y}ohmyzsh${NC}"
         sleep 1.5
         sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended >/dev/null 2>&1
         if [[ -d "$HOME/.oh-my-zsh" ]]; then
@@ -110,7 +110,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
     fi
 
     # Replacing .zshrc
-    echo -e "${BB}Replacing .zshrc${NC}"
+    echo -e "${BB}Replacing:${NC} ${Y}.zshrc${NC}"
     sleep 1.5
     cp "$config_dir/.zshrc" "$HOME/.zshrc"
     echo -e "${BG}Success.${NC}"
@@ -153,7 +153,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
     echo
 
     # Replacing .tmux.conf
-    echo -e "${BB}Replacing .tmux.conf${NC}"
+    echo -e "${BB}Replacing:${NC} ${Y}.tmux.conf${NC}"
     sleep 1.5
     cp "$config_dir/.tmux.conf" "$HOME/.tmux.conf"
     echo -e "${BG}Success.${NC}"
@@ -161,7 +161,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
 
     # Replacing .vimrc
     if ! command -v vim >/dev/null 2>&1; then
-        echo -e "${BB}vim${NC} ${Y}not detected.${NC} ${BB}Installing vim${NC}"
+        echo -e "${BB}vim${NC} ${Y}not detected.${NC} ${BB}Installing:${NC} ${Y}vim${NC}"
         sleep 1.5
         apt update -y >/dev/null 2>&1 && apt install -y vim >/dev/null 2>&1
         if command -v vim >/dev/null 2>&1; then
@@ -173,18 +173,24 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
         fi
     fi
 
-    echo -e "${BB}Replacing .vimrc${NC}"
+    echo -e "${BB}Replacing:${NC} ${Y}.vimrc${NC}"
     sleep 1.5
     cp "$config_dir/.vimrc" "$HOME/.vimrc"
     echo -e "${BG}Success.${NC}"
     echo
     
     # Installing nerd font
-    echo -e "${BB}Installing hack nerd font."
+    echo -e "${BB}Installing:${NC} ${Y}hack nerd font.${NC}"
     sleep 1.5
-    cp "$font_dir"/* "/usr/share/fonts/"
+    cp "$font_dir"/* "/usr/share/fonts/" >/dev/null 2>&1
     echo -e "${BG}Success.${NC}"
     echo
+
+    # Changing default shell
+    echo -e "${BB}Changing default shell to:${NC} ${Y}zsh${NC}"
+    chsh -s $(which zsh) >/dev/null 2>&1
+    echo
+    sleep 1.5
 
     # Finalising
     bye_msg="
