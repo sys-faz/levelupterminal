@@ -83,10 +83,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
     echo
 
     # Installing ohmyzsh
-    if command -v zsh >/dev/null 2>&1; then
-       echo -e "${BB}zsh${NC} ${Y}detected.${NC}"
-       echo
-    else
+    if ! command -v zsh >/dev/null 2>&1; then
         echo -e "${BB}zsh${NC} ${Y}not detected.${NC} ${BB}Installing zsh${NC}"
         sleep 1.5
         apt update -y >/dev/null 2>&1 && apt install -y zsh >/dev/null 2>&1
@@ -99,10 +96,7 @@ if [[ "$choice" == "Y" || "$choice" == "y" ]]; then
         fi
     fi
 
-    if [[ -d "$HOME/.oh-my-zsh" ]]; then
-        echo -e "${BB}ohmyzsh${NC} ${Y}detected.${NC}"
-        echo
-    else
+    if ! [[ -d "$HOME/.oh-my-zsh" ]]; then
         echo -e "${BB}Installing ohmyzsh${NC}"
         sleep 1.5
         sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended >/dev/null 2>&1
